@@ -9,17 +9,17 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       env:
         aliyun_username: ${{secrets.DOCKER_USERNAME}} 
         aliyun_password: ${{secrets.DOCKER_PASSWORD}} 
+        image-name: v2-ui
+        image-version: ${github.sha}
       run: |
         docker login --username=${aliyun_username} --password=${aliyun_password} registry.cn-qingdao.aliyuncs.com
-        docker build . --file Dockerfile --tag v2-ui:$(date +%s)
-        docker tag v2-ui:$(date +%s) registry.cn-qingdao.aliyuncs.com/thesadboy/v2-ui:$(date +%s)
-        docker push registry.cn-qingdao.aliyuncs.com/thesadboy/v2-ui:$(date +%s)
+        docker build . --file Dockerfile --tag ${image-name}:${image-version}
+        docker tag ${image-name}:${image-version} registry.cn-qingdao.aliyuncs.com/thesadboy/${image-name}:${image-version}
+        docker push registry.cn-qingdao.aliyuncs.com/thesadboy/${image-name}:${image-version}
