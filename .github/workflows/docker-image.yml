@@ -19,7 +19,6 @@ jobs:
         image_name: v2-ui
         image_version: ${{github.sha}}
       run: |
-        docker rmi ${image_name}
         docker login --username=${aliyun_username} --password=${aliyun_password} registry.cn-qingdao.aliyuncs.com
         docker build . --file Dockerfile --tag ${image_name}:${image_version}
         docker tag ${image_name}:${image_version} registry.cn-qingdao.aliyuncs.com/thesadboy/${image_name}:${image_version}
