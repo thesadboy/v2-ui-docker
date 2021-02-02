@@ -16,10 +16,10 @@ jobs:
       env:
         aliyun_username: ${{secrets.DOCKER_USERNAME}} 
         aliyun_password: ${{secrets.DOCKER_PASSWORD}} 
-        image_name: v2-ui
-        image_version: $(echo "${{ github.sha }}" | sed -e 's,.*/\(.*\),\1,')
       run: |
+        IMAGE_NAME=v2-ui
+        IMAGE_VERSION=$(echo "${{ github.sha }}" | sed -e 's,.*/\(.*\),\1,')
         docker login --username=${aliyun_username} --password=${aliyun_password} registry.cn-qingdao.aliyuncs.com
-        docker build . --file Dockerfile --tag ${image_name}:${image_version}
-        docker tag ${image_name}:${image_version} registry.cn-qingdao.aliyuncs.com/thesadboy/${image_name}:${image_version}
-        docker push registry.cn-qingdao.aliyuncs.com/thesadboy/${image_name}:${image_version}
+        docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_VERSION
+        docker tag $IMAGE_NAME:$IMAGE_VERSION registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
+        docker push registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
