@@ -12,21 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # - name: Build the Docker image
-    #   run: |
-    #     IMAGE_NAME=v2-ui
-    #     # IMAGE_VERSION=$(echo "${{ github.sha }}" | cut -c 1-8)
-    #     IMAGE_VERSION=0.0.2
-    #     docker login --username=${{secrets.DOCKER_USERNAME}}  --password=${{secrets.DOCKER_PASSWORD}} registry.cn-qingdao.aliyuncs.com
-    #     docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_VERSION
-    #     docker tag $IMAGE_NAME:$IMAGE_VERSION registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
-    #     docker push registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
-    - name: Push the Docker Image
-      uses: LucienShui/Publish-Docker-Github-Action@2.7.1
-      with:
-        name: registry.cn-qingdao.aliyuncs.com/thesadboy/v2-ui:0.0.2 # docker image 的名字
-        username: ${{ secrets.DOCKER_USERNAME }} # 用户名
-        password: ${{ secrets.DOCKER_PASSWORD }} # 密码
-        registry: registry.cn-qingdao.aliyuncs.com # 阿里巴巴的 Docker Hub
-        dockerfile: Dockerfile # 指定 Dockerfile 的位置
-        tag_names: false # 是否将 release 的 tag 作为 docker image 的 tag
+    - name: Build the Docker image
+      run: |
+        IMAGE_NAME=v2-ui
+        # IMAGE_VERSION=$(echo "${{ github.sha }}" | cut -c 1-8)
+        IMAGE_VERSION=0.0.2
+        docker login --username=${{secrets.DOCKER_USERNAME}}  --password=${{secrets.DOCKER_PASSWORD}} registry.cn-qingdao.aliyuncs.com
+        docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_VERSION
+        docker tag $IMAGE_NAME:$IMAGE_VERSION registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
+        docker push registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
