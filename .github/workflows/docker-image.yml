@@ -18,7 +18,8 @@ jobs:
         aliyun_password: ${{secrets.DOCKER_PASSWORD}} 
       run: |
         IMAGE_NAME=v2-ui
-        IMAGE_VERSION=$(echo "${{ github.sha }}" | cut -c 1-8)
+        # IMAGE_VERSION=$(echo "${{ github.sha }}" | cut -c 1-8)
+        IMAGE_VERSION=latest
         docker login --username=${aliyun_username} --password=${aliyun_password} registry.cn-qingdao.aliyuncs.com
         docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_VERSION
         docker tag $IMAGE_NAME:$IMAGE_VERSION registry.cn-qingdao.aliyuncs.com/thesadboy/$IMAGE_NAME:$IMAGE_VERSION
