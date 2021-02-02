@@ -17,7 +17,7 @@ jobs:
         aliyun_username: ${{secrets.DOCKER_USERNAME}} 
         aliyun_password: ${{secrets.DOCKER_PASSWORD}} 
         image_name: v2-ui
-        image_version: ${github.sha}
+        image_version: ${{github.sha}}
       run: |
         docker login --username=${aliyun_username} --password=${aliyun_password} registry.cn-qingdao.aliyuncs.com
         docker build . --file Dockerfile --tag ${image_name}:${image_version}
