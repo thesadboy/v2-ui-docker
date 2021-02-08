@@ -1,14 +1,11 @@
-FROM centos:7
+FROM centos
 ENV SHELL /bin/bash
 ADD systemctl /usr/bin/systemctl-fake
-RUN yum install wget gcc -y \
-    && curl https://raw.githubusercontent.com/daleobrien/start-stop-daemon/master/start-stop-daemon.c > start-stop-daemon.c \
-    && gcc start-stop-daemon.c -o start-stop-daemon \
-    && mv start-stop-daemon /usr/bin/start-stop-daemon \
+ADD start-stop-daemon /usr/bin/start-stop-daemon
+RUN yum install wget -y \
     && mv /usr/bin/systemctl /usr/bin/systemctl.real \
     && mv /usr/bin/systemctl-fake /usr/bin/systemctl \
-    && yum remove gcc -y \
-    && chmod 775 /usr/bin/systemctl && yum clean all \
+    && chmod 775 /usr/bin/systemctl && chmod 775 /usr/bin/start-stop-daemon && yum clean all \
     && wget https://raw.githubusercontent.com/sprov065/v2-ui/master/install.sh --no-check-certificate \
     && bash ./install.sh && rm ./install.sh
 EXPOSE 65432
