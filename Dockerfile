@@ -6,4 +6,5 @@ RUN apt-get update \
     && bash ./install.sh \
     && rm ./install.sh \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+VOLUME [ "/etc/v2-ui" ]
 EXPOSE 65432
